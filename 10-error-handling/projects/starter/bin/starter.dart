@@ -1,18 +1,24 @@
 import 'dart:convert';
 
 void main() {
-  const numberStrings = ["42", "hello"];
+  final database = FakeDatabase();
+  database.open();
 
   try {
-    for (final numberString in numberStrings) {
-      final number = int.parse(numberString);
-      print(number ~/ 0);
-    }
+    final data = database.fetchData();
+    final number = int.parse(data);
+    print('The number is $number');
   } on FormatException {
-    handleFormatException();
-  } on UnsupportedError {
-    handleDivisionByZero();
+    print("Dart didn't recognize that as a number");
+  } finally {
+    database.close();
   }
+}
+
+class FakeDatabase {
+  void open() => print('Opening the database.');
+  void close() => print('Closing the database');
+  String fetchData() => '42';
 }
 
 void handleFormatException() {
@@ -61,3 +67,16 @@ void handleDivisionByZero() {
 //   } on FormatException {
 //     print('The JSON string was invalid');
 //   }
+
+  // const numberStrings = ["42", "hello"];
+
+  // try {
+  //   for (final numberString in numberStrings) {
+  //     final number = int.parse(numberString);
+  //     print(number ~/ 0);
+  //   }
+  // } on FormatException {
+  //   handleFormatException();
+  // } on UnsupportedError {
+  //   handleDivisionByZero();
+  //}
