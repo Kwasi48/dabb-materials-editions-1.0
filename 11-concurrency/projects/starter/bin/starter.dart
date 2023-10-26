@@ -1,17 +1,9 @@
 void main() {
   print('first');
+  //Intentionally delaying a task.
+  Future.delayed(Duration(seconds: 2), () => print('second'));
 
-  //Runing a Synchronous task after an Event Queue Task
-
-  Future(
-    () => print('second'),
-  ).then((value) => print('third'));
-
-  Future(
-    () => print('fourth'),
-  );
-
-  print('fifth');
+  print('third');
 }
 
   // print('first');
@@ -33,3 +25,18 @@ void main() {
   // Future.microtask(() => print('third'));
 
   // print('four');
+
+
+  // print('first');
+
+  // //Runing a Synchronous task after an Event Queue Task
+
+  // Future(
+  //   () => print('second'),
+  // ).then((value) => print('third'));
+
+  // Future(
+  //   () => print('fourth'),
+  // );
+
+  // print('fifth');
