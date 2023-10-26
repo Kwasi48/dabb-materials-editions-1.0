@@ -1,4 +1,18 @@
-void main() {}
+void main() {
+  print('first');
+
+  //Runing a Synchronous task after an Event Queue Task
+
+  Future(
+    () => print('second'),
+  ).then((value) => print('third'));
+
+  Future(
+    () => print('fourth'),
+  );
+
+  print('fifth');
+}
 
   // print('first');
   //adding a task to the event queue.
