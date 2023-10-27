@@ -26,8 +26,27 @@ class Todo {
   @override
   String toString() {
     return 'userId: $userId\n'
-        'id: $id'
-        'title: $title'
+        'id: $id\n'
+        'title: $title\n'
         'completed: $completed';
   }
+}
+
+Future<void> main() async {
+  //1
+  final url = 'https://jsonplaceholder.typicode.com/todos/1';
+  final parsedUrl = Uri.parse(url);
+  //2,3
+  final response = await http.get(parsedUrl);
+  //4
+  final statusCode = response.statusCode;
+  if (statusCode != 200) {
+    throw HttpException('$statusCode');
+  }
+  //5
+  final jsonString = response.body;
+  dynamic jsonMap = jsonDecode(jsonString);
+  //6
+  final todo = Todo.fromJson(jsonMap);
+  print(todo);
 }
