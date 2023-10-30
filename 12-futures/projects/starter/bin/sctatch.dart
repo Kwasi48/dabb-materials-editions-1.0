@@ -37,5 +37,11 @@ class FakeWebServer implements DataRepository {
 
 Future<void> main() async {
   final server = FakeWebServer();
-  print(server.fetchTemperature('havanna'));
+  try {
+    final city = 'Portland';
+    final degrees = await server.fetchTemperature(city);
+    print("It's $degrees degress in $city");
+  } on ArgumentError catch (e) {
+    print(e);
+  }
 }
