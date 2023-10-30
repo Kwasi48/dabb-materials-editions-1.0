@@ -11,8 +11,10 @@ class FakeWebServer implements DataRepository {
     //completing with an error
     //return Future.error(ArgumentError("$city doesn't exist"));
     //Giving a Delayed Response with error
-    return Future.delayed(Duration(seconds: 2),
-        (() => throw ArgumentError('City does not exist')));
+    // return Future.delayed(Duration(seconds: 2),
+    //     (() => throw ArgumentError('City does not exist')));
+    //using the async method
+    return 42.0;
   }
 }
 
