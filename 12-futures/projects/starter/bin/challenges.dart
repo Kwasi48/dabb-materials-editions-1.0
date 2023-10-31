@@ -67,3 +67,33 @@ Future<void> main() async {
     print(e);
   }
 }
+
+class Comment {
+  int id;
+  int postId;
+  String name;
+  String email;
+  String body;
+
+  Comment(
+      {required this.postId,
+      required this.id,
+      required this.name,
+      required this.email,
+      required this.body});
+
+  factory Comment.fromJson(Map<String, dynamic> jsonMap) {
+    return Comment(
+      postId: jsonMap['postId'] as int,
+      id: jsonMap['id'] as int,
+      name: jsonMap['name'] as String,
+      email: jsonMap['email'] as String,
+      body: jsonMap['body'] as String,
+    );
+  }
+
+  @override
+  String toString() {
+    return '$name\n $body';
+  }
+}
