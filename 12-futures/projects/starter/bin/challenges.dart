@@ -36,8 +36,34 @@ class FakeWebServer implements DataRepository {
 
 class realData implements DataRepository {
   @override
-  Future<double> fetchTemperature(String city) {
-    // TODO: implement fetchTemperature
-    throw UnimplementedError();
+  Future<double> fetchTemperature(String city) async {
+    return Future(() => 24.0);
+  }
+}
+
+Future<void> main() async {
+  String url = 'https://fcc-weather-api.glitch.me/api/current';
+  const longitiude = 12.0;
+  const latitude = 145.8;
+  final parsedUrl = Uri.parse('$url?lat=$latitude&lon=$longitiude');
+  try {
+    final response = await http.get(parsedUrl);
+    final statusCode = response.statusCode;
+    if (statusCode != 200) {
+      throw HttpException('$statusCode');
+    }
+
+    final jsonString = response.body;
+    final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
+    print(jsonMap);
+    final temp = jsonMap['main']['temp'] as double;
+    final name = jsonMap['name'] as String;
+    print("it is $temp degress in $name");
+  } on SocketException catch (e) {
+    print(e);
+  } on FormatException catch (e) {
+    print(e);
+  } on HttpException catch (e) {
+    print(e);
   }
 }
