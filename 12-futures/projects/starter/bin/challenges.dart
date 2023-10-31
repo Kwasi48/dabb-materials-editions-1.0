@@ -82,6 +82,7 @@ class Comment {
       required this.email,
       required this.body});
 
+//factory to convert Json to dart Map👌
   factory Comment.fromJson(Map<String, dynamic> jsonMap) {
     return Comment(
       postId: jsonMap['postId'] as int,
