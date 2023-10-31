@@ -2,6 +2,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 abstract class DataRepository {
   Future<double> fetchTemperature(String city);
@@ -29,5 +31,13 @@ class FakeWebServer implements DataRepository {
       final temp = random.nextDouble() * 50;
       return Future.value(temp);
     }
+  }
+}
+
+class realData implements DataRepository {
+  @override
+  Future<double> fetchTemperature(String city) {
+    // TODO: implement fetchTemperature
+    throw UnimplementedError();
   }
 }
