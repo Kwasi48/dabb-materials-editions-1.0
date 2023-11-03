@@ -2,20 +2,14 @@ import 'dart:io';
 import 'dart:async';
 
 Future<void> main() async {
-  //Cancelling a Stream
+  //transforming a stream
 
   final file = File(
-      'C:/Users/micha/OneDrive/Desktop/books/dabb-materials-editions-1.0/13-streams/projects/starter/assets/text_long.txt');
+      'C:/Users/micha/OneDrive/Desktop/books/dabb-materials-editions-1.0/13-streams/projects/starter/assets/text.txt');
   final stream = file.openRead();
-  StreamSubscription<List<int>>? subscription;
-  subscription = stream.listen(
+  stream.listen(
     (data) {
-      print(data.length);
-      subscription?.cancel();
-    },
-    cancelOnError: true,
-    onDone: () {
-      print('all finished');
+      print(data);
     },
   );
 }  
