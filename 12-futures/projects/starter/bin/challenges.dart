@@ -66,6 +66,20 @@ Future<void> main() async {
   } on HttpException catch (e) {
     print(e);
   }
+
+  //challenge 3
+
+  final commentsUrl = 'https://jsonplaceholder.typicode.com/comments';
+  final commentList = <Comment>[];
+  final parsecomments = Uri.parse(commentsUrl);
+  try {
+    final response = await http.get(parsecomments);
+    final statusCode = response.statusCode;
+    if (statusCode != 200) {
+      throw HttpException('$statusCode');
+    }
+    final jsonRaw = response.body;
+  } catch (e) {}
 }
 
 class Comment {
