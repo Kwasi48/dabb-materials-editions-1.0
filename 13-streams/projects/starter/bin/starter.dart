@@ -5,9 +5,9 @@ Future<void> main() async {
   final file = File(
       'C:/Users/micha/OneDrive/Desktop/books/dabb-materials-editions-1.0/13-streams/projects/starter/assets/text_long.txt');
   final stream = file.openRead();
-  stream.listen((data) {
+  await for (var data in stream) {
     print(data.length);
-  });
+  }
 }
 
 
