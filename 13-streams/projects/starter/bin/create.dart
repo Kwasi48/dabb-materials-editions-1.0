@@ -2,7 +2,7 @@
 Stream<String> consciousness() async* {
   final data = ['con', 'sciuos', 'ness'];
   for (final part in data) {
-    await Future<String>.delayed(Duration(milliseconds: 500));
+    await Future<void>.delayed(Duration(milliseconds: 500));
     yield part;
   }
 }
@@ -22,6 +22,12 @@ Future<void> main() async {
   ]);
 
   stream.listen((event) {
+    print(event);
+  });
+
+  final stream1 = consciousness();
+
+  stream1.listen((event) {
     print(event);
   });
 }
