@@ -1,3 +1,12 @@
+//Using Asynchronous generators
+Stream<String> consciousness() async* {
+  final data = ['con', 'sciuos', 'ness'];
+  for (final part in data) {
+    await Future<String>.delayed(Duration(milliseconds: 500));
+    yield part;
+  }
+}
+
 Future<void> main() async {
   final first = Future(() => 'Row');
   final second = Future(() => 'row');
