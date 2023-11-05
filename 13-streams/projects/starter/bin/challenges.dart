@@ -6,5 +6,9 @@ Future<void> main() async {
   final client = http.Client();
   final request = http.Request('GET', url);
   final response = await client.send(request);
-  final stream = response;
+  final stream = response.stream;
+
+  stream.listen((value) {
+    print(value);
+  });
 }
