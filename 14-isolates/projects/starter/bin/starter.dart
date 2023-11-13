@@ -47,16 +47,4 @@ Future<void> main() async {
 //   final message = await receivePort.first as String;
 //   print(message);
 
-class Work {
-  Future<int> doSomething() async {
-    print('do some work....');
-    sleep(Duration(seconds: 1));
-    return 42;
-  }
 
-  Future<int> doSomethingElse() async {
-    print('doing somework.....');
-    sleep(Duration(seconds: 1));
-    return 24;
-  }
-}
