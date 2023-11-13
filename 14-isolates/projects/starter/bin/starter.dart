@@ -1,13 +1,13 @@
 import 'dart:isolate';
 
-void playHideandSeekTheLongVersion(List<Object> arguments) {
-  final sendPort = arguments[0] as SendPort;
-  final countTo = arguments[1] as int;
+void playHideandSeekTheLongVersion(SendPort sendPort) {
+  // final sendPort = arguments[0] as SendPort;
+  // final countTo = arguments[1] as int;
 
   sendPort.send("OK, I'am counting.......");
 
   var counting = 0;
-  for (var i = 1; i <= countTo; i++) {
+  for (var i = 1; i <= 1000000000; i++) {
     counting = i;
   }
 
@@ -16,13 +16,21 @@ void playHideandSeekTheLongVersion(List<Object> arguments) {
 }
 
 Future<void> main() async {
-  //1
   final receivePort = ReceivePort();
 
-  final isolate = await Isolate.spawn<List<Object>>(
+  final isolate = await Isolate.spawn<SendPort>(
     playHideandSeekTheLongVersion,
-    [receivePort.sendPort, 9999999999],
+    receivePort.sendPort,
   );
+
+  receivePort.listen((Object? message) {
+    if (message is String) {
+      print(message);
+    } else if (message == null) {
+      receivePort.close();
+      isolate.kill();
+    }
+  });
 }
 
 //   //2
