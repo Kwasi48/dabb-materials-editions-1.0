@@ -17,6 +17,32 @@ class Work {
 }
 
 //1
+class Earth {
+  //2
+  final _receiveOnEarthPort = ReceivePort();
+  SendPort? _sendToMarsPort;
+  Isolate? _marsIsolate;
+
+  Future<void> contactMars() async {
+    if (_marsIsolate != null) {
+      _marsIsolate = await Isolate.spawn(
+        _entryPoint,
+        _receiveOnEarthPort.sendPort,
+      );
+
+      //TODO: add listener
+    }
+  }
+
+  //3
+  void dispose() {
+    _receiveOnEarthPort.close();
+    _marsIsolate?.kill();
+    _marsIsolate = null;
+  }
+}
+
+//1
 Future<void> _entryPoint(SendPort sendToEarthPort) async {
   //2
   final receiveOnMarsPort = ReceivePort();
