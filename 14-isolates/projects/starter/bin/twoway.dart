@@ -23,40 +23,39 @@ class Earth {
   Isolate? _marsIsolate;
 
   Future<void> contactMars() async {
-    if (_marsIsolate != null) {
-      _marsIsolate = await Isolate.spawn(
-        _entryPoint,
-        _receiveOnEarthPort.sendPort,
-      );
+    if (_marsIsolate != null) return;
+    _marsIsolate = await Isolate.spawn(
+      _entryPoint,
+      _receiveOnEarthPort.sendPort,
+    );
 
-      _receiveOnEarthPort.listen((Object? messageFromMars) async {
-        await Future<void>.delayed(Duration(seconds: 1));
-        print('Message from Mars: $messageFromMars');
-        //1
-        if (messageFromMars is SendPort) {
-          _sendToMarsPort = messageFromMars;
-          _sendToMarsPort?.send('Hey from Earth');
-        }
-        //2
-        else if (messageFromMars == 'Hey from Mars') {
-          _sendToMarsPort?.send('Can you hel?');
-        } else if (messageFromMars == 'sure') {
-          _sendToMarsPort?.send('doSomething');
-          _sendToMarsPort?.send('doSomethingElse');
-        }
-        //3
-        else if (messageFromMars is Map) {
-          final method = messageFromMars['method'] as String;
-          final result = messageFromMars['result'] as int;
-          print('The result of $method is $result ');
-        }
-        //4
-        else if (messageFromMars == 'done') {
-          print('shutting down');
-          dispose();
-        }
-      });
-    }
+    _receiveOnEarthPort.listen((Object? messageFromMars) async {
+      await Future<void>.delayed(Duration(seconds: 1));
+      print('Message from Mars: $messageFromMars');
+      //1
+      if (messageFromMars is SendPort) {
+        _sendToMarsPort = messageFromMars;
+        _sendToMarsPort?.send('Hey from Earth');
+      }
+      //2
+      else if (messageFromMars == 'Hey from Mars') {
+        _sendToMarsPort?.send('Can you hel?');
+      } else if (messageFromMars == 'sure') {
+        _sendToMarsPort?.send('doSomething');
+        _sendToMarsPort?.send('doSomethingElse');
+      }
+      //3
+      else if (messageFromMars is Map) {
+        final method = messageFromMars['method'] as String;
+        final result = messageFromMars['result'] as int;
+        print('The result of $method is $result ');
+      }
+      //4
+      else if (messageFromMars == 'done') {
+        print('shutting down');
+        dispose();
+      }
+    });
   }
 
   //3
