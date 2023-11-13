@@ -1,7 +1,5 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:isolate';
-import 'dart:web_gl';
 
 class Work {
   Future<int> doSomething() async {
