@@ -52,6 +52,11 @@ class Earth {
           final result = messageFromMars['result'] as int;
           print('The result of $method is $result ');
         }
+        //4
+        else if (messageFromMars == 'done') {
+          print('shutting down');
+          dispose();
+        }
       });
     }
   }
