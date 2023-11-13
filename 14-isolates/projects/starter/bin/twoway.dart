@@ -39,7 +39,7 @@ class Earth {
       }
       //2
       else if (messageFromMars == 'Hey from Mars') {
-        _sendToMarsPort?.send('Can you hel?');
+        _sendToMarsPort?.send('Can you help?');
       } else if (messageFromMars == 'sure') {
         _sendToMarsPort?.send('doSomething');
         _sendToMarsPort?.send('doSomethingElse');
