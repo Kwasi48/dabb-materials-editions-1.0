@@ -19,7 +19,10 @@ Future<void> main() async {
   //1
   final receivePort = ReceivePort();
 
-  final isolate = await Isolate.spawn((message) { }, message)
+  final isolate = await Isolate.spawn<List<Object>>(
+    playHideandSeekTheLongVersion,
+    [receivePort.sendPort, 9999999999],
+  );
 }
 
 //   //2
