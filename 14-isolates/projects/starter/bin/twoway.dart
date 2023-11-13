@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:isolate';
+import 'dart:web_gl';
 
 class Work {
   Future<int> doSomething() async {
@@ -23,5 +24,25 @@ Future<void> _entryPoint(SendPort sendToEarthPort) async {
   //3
   final work = Work();
 
-  //TODO: add listener
+  receiveOnMarsPort.listen((Object? messageFromEarth) async {
+    //1
+    await Future<void>.delayed(Duration(seconds: 1));
+    print('Message from Earth: $messageFromEarth');
+    //2
+    if (messageFromEarth == 'Hey from Earth') {
+      sendToEarthPort.send('Hey from Mars');
+    } else if (messageFromEarth == 'Can you help?') {
+      sendToEarthPort.send('sure');
+    }
+    //3
+    else if (messageFromEarth == 'doSomething') {
+      final result = await work.doSomething();
+      //4
+      sendToEarthPort.send({
+        'method': 'doSomething',
+        'result': result,
+      });
+      sendToEarthPort.send('done');
+    }
+  });
 }
