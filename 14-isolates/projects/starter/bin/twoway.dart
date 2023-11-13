@@ -97,3 +97,8 @@ Future<void> _entryPoint(SendPort sendToEarthPort) async {
     }
   });
 }
+
+Future<void> main() async {
+  final earth = Earth();
+  await earth.contactMars();
+}
