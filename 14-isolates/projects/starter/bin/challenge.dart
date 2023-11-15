@@ -9,11 +9,11 @@ void fibonacci(Map<String, Object> arguments) {
   var current = 1;
   var previous = 1;
   var done = 2;
-  while (done < 2) {
-    final current = current + previous;
+  while (done < n) {
+    final next = current + previous;
     previous = current;
     current = next;
-    done++;
+    done += 1;
   }
   Isolate.exit(sendPort, current);
 }
